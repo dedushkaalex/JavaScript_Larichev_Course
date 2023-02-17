@@ -212,13 +212,13 @@ console.log(maskCard(card, 4));
 
 /* Отсортировать пользователей по возрасту */
 const users = [
-  { name: 'Вася', age: 30 },
-  { name: 'Катя', age: 18 },
-  { name: 'Аня', age: 40 },
-  { name: 'Петя', age: 25 },
+  { name: 'Вася', age: 30, score: 15 },
+  { name: 'Катя', age: 18, score: 16 },
+  { name: 'Аня', age: 40, score: 17 },
+  { name: 'Петя', age: 25, score: 18 },
 ];
 
-console.log(users.sort((a, b) => a.age - b.age));
+console.log(users.sort((a, b) => (a.age + a.score) - (b.age + b.score)));
 
 /* Преобразовать пользователей до вида
   {fullName: 'Вася Пупкин', skillNum: 2}
@@ -393,3 +393,124 @@ let color = colors[0].toString(16)
   
 }
 console.log(brightest(["#001000","#000000"]));
+
+
+
+
+function whoseBicycle(diary1, diary2, diary3) {
+  let score1 = Object.values(diary1).reduce((a, b) => a + b, 0)
+  let score2 = Object.values(diary2).reduce((a, b) => a + b, 0)
+  let score3 = Object.values(diary3).reduce((a, b) => a + b, 0)
+  let son1 = { score: score1, age: 14 }
+  let son2 = { score: score2, age: 9 }
+  let son3 = { score: score3, age: 8 }
+  let totalArr = [son1, son2, son3]
+  const key = 'score';
+  let sorted = totalArr.sort((obj1, obj2) => (obj1.score + obj1.age) - (obj2.score + obj2.age))
+               .map(obj => {
+                return obj.score + obj.age;
+               });
+  
+  return sorted;
+
+}
+console.log(whoseBicycle(
+  {
+    'algebra': 6,
+    'history': 7,
+    'physics': 8,
+    'geography': 9,
+    'chemistry': 10
+  },
+  {
+    'algebra': 8,
+    'history': 7,
+    'physics': 8,
+    'geography': 9,
+    'chemistry': 10
+  },
+  {
+    'algebra': 6,
+    'history': 5,
+    'physics': 5,
+    'geography': 9,
+    'chemistry': 10
+  }
+))
+
+/*
+конвертер систем счисления
+*/
+var Alphabet = {
+  BINARY: '01',
+  OCTAL: '01234567',
+  DECIMAL: '0123456789',
+  HEXA_DECIMAL: '0123456789abcdef',
+  ALPHA_LOWER: 'abcdefghijklmnopqrstuvwxyz',
+  ALPHA_UPPER: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ALPHA: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ALPHA_NUMERIC: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+};
+var bin = Alphabet.BINARY, oct = Alphabet.OCTAL, dec = Alphabet.DECIMAL, hex = Alphabet.HEXA_DECIMAL,
+  allow = Alphabet.ALPHA_LOWER, alup = Alphabet.ALPHA_UPPER, alpha = Alphabet.ALPHA, alnum = Alphabet.ALPHA_NUMERIC;
+
+function convert(input, source, target) {
+  let s = '';
+  let str = '';
+  for(let i = 0; i < input.length; i++) {
+    s = s * source.length + source.indexOf(input[i]);
+    console.log(source.indexOf(input[i]));
+  }
+  console.log(s);
+  while (s > 0) {
+    str = target[s % target.length] + str;
+    console.log(str);
+    s = Math.floor(s / target.length);
+  }
+  return str ? str : target[0];
+};
+
+// convert("15", dec, bin);
+console.log(convert("15", dec, bin));
+
+/*
+удалить все гласные из строки
+*/
+
+
+function disemvowel(str) {
+  let symbolsStr = 'AaEeIiOoUuYy';
+  let newStr = '';
+  for (let i of str) {
+    if (symbolsStr.indexOf(i) < 0) newStr += i;
+  }
+  return newStr;
+
+}
+console.log(disemvowel("No offense but,\nYour writing is among the worst I've ever read"))
+
+function explode(str) {
+  str =   str.split('').map(symbol => {
+     if (symbol == '0') symbol = '';
+     return symbol.padEnd(Number(symbol), symbol);
+  }).join('');
+  if (str.length) return str;
+  else return '';
+}
+
+console.log(explode("000"));
+
+/*
+Помогите Джонни, написав функцию, которая берет количество рукопожатий и возвращает минимальное количество людей, необходимое для выполнения этих рукопожатий (пара фермеров рукопожатия только один раз).
+*/
+function getParticipants(x) {
+  let farmers = 0;
+  while( x > farmers * (farmers - 1) / 2) {
+    console.log(farmers * (farmers - 1) / 2);
+    farmers++;
+  }
+  return farmers;
+}
+
+console.log(getParticipants(7));
+
