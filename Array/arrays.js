@@ -28,7 +28,7 @@ console.log(arrLength);
 //добавить в начало
 users.unshift('Вася');
 console.log(users);
-
+//sd
 //удаление элемента с конца
 const el = users.pop(); // возвращает удаленный элемент
 console.log(users);
